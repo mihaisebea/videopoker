@@ -6,3 +6,4 @@ todo
 - compile on android with vs2015
 - check why input is taking 50% of the cpu in debug (xinput)
 - limit fps 
+- add more card types
