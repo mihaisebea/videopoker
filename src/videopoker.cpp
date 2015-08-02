@@ -1,5 +1,6 @@
 
 #include "common.h"
+#include "entry/input.h"
 #include <bgfx.h>
 #include "time.h"
 #include <algorithm>
@@ -523,7 +524,7 @@ bool IsBetSelected(s32 index,  u32 scrW, u32 scrH, u32 mx, u32 my)
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void UpdateScene(u64 delta, const entry::KeyState& keyState, const entry::MouseState& mouseState, const entry::MouseState& oldMouseState, EGameState& gameState, uint32_t tableCards[5], uint32_t heldCards[5],
+void UpdateScene(u64 delta, const entry::MouseState& mouseState, const entry::MouseState& oldMouseState, EGameState& gameState, uint32_t tableCards[5], uint32_t heldCards[5],
 	uint32_t& tableBet, uint32_t& tableCredit, uint32_t deck[52], uint32_t& winIndex, u32 scrW, u32 scrH)
 {
 	bool wasMouseReleased = !mouseState.m_buttons[entry::MouseButton::Left] && oldMouseState.m_buttons[entry::MouseButton::Left];
@@ -535,8 +536,8 @@ void UpdateScene(u64 delta, const entry::KeyState& keyState, const entry::MouseS
 	case STATE_WAIT_BET:
 	{
 		//check if we clicked in any row to set bet 
-
-		if (keyState.m_keysDown[entry::Key::Plus])
+		
+		if (inputGetKeyState(entry::Key::Plus, 0))
 		{
 			tableBet++;
 
@@ -556,7 +557,7 @@ void UpdateScene(u64 delta, const entry::KeyState& keyState, const entry::MouseS
 			}
 		}
 
-		if (keyState.m_keysDown[entry::Key::Return] || (wasMouseReleased && !betSelected))
+		if (inputGetKeyState(entry::Key::Return) || (wasMouseReleased && !betSelected))
 		{
 			if (tableCredit >= tableBet)
 			{
@@ -607,34 +608,34 @@ void UpdateScene(u64 delta, const entry::KeyState& keyState, const entry::MouseS
 	
 		bool card0Clicked = wasMouseReleased && IsCardSelected(0, tableCards, 12, scrH / 2 - 10, scrW, scrH, mx, my);
 
-		if (keyState.m_keysDown[entry::Key::Key1] || card0Clicked)
+		if (inputGetKeyState(entry::Key::Key1) || card0Clicked)
 		{
 			heldCards[0] = !heldCards[0];
 		}
 
 		bool card1Clicked = wasMouseReleased && IsCardSelected(1, tableCards, 12, scrH / 2 - 10, scrW, scrH, mx, my);
-		if (keyState.m_keysDown[entry::Key::Key2] || card1Clicked)
+		if (inputGetKeyState(entry::Key::Key2) || card1Clicked)
 		{
 			heldCards[1] = !heldCards[1];
 		}
 		bool card2Clicked = wasMouseReleased && IsCardSelected(2, tableCards, 12, scrH / 2 - 10, scrW, scrH, mx, my);
-		if (keyState.m_keysDown[entry::Key::Key3] || card2Clicked)
+		if (inputGetKeyState(entry::Key::Key3) || card2Clicked)
 		{
 			heldCards[2] = !heldCards[2];
 		}
 		bool card3Clicked = wasMouseReleased && IsCardSelected(3, tableCards, 12, scrH / 2 - 10, scrW, scrH, mx, my);
-		if (keyState.m_keysDown[entry::Key::Key4] || card3Clicked)
+		if (inputGetKeyState(entry::Key::Key4) || card3Clicked)
 		{
 			heldCards[3] = !heldCards[3];
 		}
 		bool card4Clicked = wasMouseReleased && IsCardSelected(4, tableCards, 12, scrH / 2 - 10, scrW, scrH, mx, my);
-		if (keyState.m_keysDown[entry::Key::Key5] || card4Clicked)
+		if (inputGetKeyState(entry::Key::Key5) || card4Clicked)
 		{
 			heldCards[4] = !heldCards[4];
 		}
 
 		bool noCardSelected = wasMouseReleased && !card0Clicked && !card1Clicked && !card2Clicked && !card3Clicked && !card4Clicked;
-		if (keyState.m_keysDown[entry::Key::Return] || noCardSelected)
+		if (inputGetKeyState(entry::Key::Return) || noCardSelected)
 		{
 			gameState = STATE_DEAL_EXTRA;
 		}
@@ -685,7 +686,7 @@ void UpdateScene(u64 delta, const entry::KeyState& keyState, const entry::MouseS
 
 		case STATE_SHOW_WIN:
 		{
-			if (keyState.m_keysDown[entry::Key::Return] || wasMouseReleased)
+			if (inputGetKeyState(entry::Key::Return) || wasMouseReleased)
 			{
 				gameState = STATE_WAIT_BET;
 				winIndex = 0;
@@ -736,13 +737,13 @@ int _main_(int /*_argc*/, char** /*_argv*/)
 
 	srand(time(NULL));
 
-	NVGcontext* nvg = nvgCreate(1024, 1024, 1, 0);
+	NVGcontext* nvg = nvgCreate(1, 0);
 	bgfx::setViewSeq(0, true);
 	//bgfx::TextureHandle image = loadTexture("oxy_white.png", BGFX_TEXTURE_U_CLAMP | BGFX_TEXTURE_V_CLAMP);
 
-	auto bnd_font = nvgCreateFont(nvg, "droidsans", "font/droidsans.ttf");
+	auto bnd_font = nvgCreateFont(nvg, "droidsans", "droidsans.ttf");
 	
-	u32 image = nvgCreateImage(nvg, "textures/oxy_white.png");
+	u32 image = nvgCreateImage(nvg, "oxy_white.png", 0);
 
 
 	gameState = STATE_WAIT_BET;
@@ -765,16 +766,16 @@ int _main_(int /*_argc*/, char** /*_argv*/)
 */
 	entry::MouseState mouseState;
 	entry::MouseState oldMouseState;
-	entry::KeyState keyState;
+	//entry::KeyState keyState;
 
-	while (!entry::processEvents(width, height, debug, reset, &mouseState, &keyState) )
+	while (!entry::processEvents(width, height, debug, reset, &mouseState) )
 	{
 		// Set view 0 default viewport.
 		bgfx::setViewRect(0, 0, 0, width, height);
 
 		// This dummy draw call is here to make sure that view 0 is cleared
 		// if no other draw calls are submitted to view 0.
-		bgfx::submit(0);
+		bgfx::touch(0);
 
 		// Use debug font to print information about this example.
 		bgfx::dbgTextClear();
@@ -789,9 +790,9 @@ int _main_(int /*_argc*/, char** /*_argv*/)
 
 		lastTime = time;
 
-		UpdateScene(delta, keyState, mouseState, oldMouseState, gameState, tableCards, heldCards, tableBet, tableCredit, deck, winIndex, width, height);
+		UpdateScene(delta, mouseState, oldMouseState, gameState, tableCards, heldCards, tableBet, tableCredit, deck, winIndex, width, height);
 
-		nvgBeginFrame(nvg, width, height, 1.0f, NVG_STRAIGHT_ALPHA);
+		nvgBeginFrame(nvg, width, height, 1.0f);
 
 		DrawScene(nvg, image, bnd_font, width, height, winIndex, tableBet, tableCards, heldCards, tableCredit, gameState);
 		
