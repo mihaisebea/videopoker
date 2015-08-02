@@ -604,9 +604,6 @@ void UpdateScene(u64 delta, const entry::MouseState& mouseState, const entry::Mo
 
 	case STATE_WAIT_SELECT:
 	{
-
-		
-	
 		bool card0Clicked = wasMouseReleased && IsCardSelected(0, tableCards, 12, scrH / 2 - 10, scrW, scrH, mx, my);
 
 		if (inputGetKeyState(entry::Key::Key1) || card0Clicked)
@@ -758,15 +755,7 @@ int _main_(int /*_argc*/, char** /*_argv*/)
 	std::fill_n(deck, 52, 52);
 	
 	u64 lastTime = bx::getHPCounter();
-	//const int64_t freq = bx::getHPFrequency();
 
-	/*int64_t now =;
-	static int64_t last = now;
-	const int64_t frameTime = now - last;
-	last = now;
-	
-	
-*/
 	entry::MouseState mouseState;
 	entry::MouseState oldMouseState;
 	//entry::KeyState keyState;
