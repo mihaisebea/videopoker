@@ -5,6 +5,7 @@
 #include "time.h"
 #include <algorithm>
 #include "bgfx_utils.h"
+#include "imgui/imgui.h" 
 #include "nanovg/nanovg.h"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -735,6 +736,8 @@ int _main_(int /*_argc*/, char** /*_argv*/)
 		, 0
 		);
 
+	imguiCreate();
+
 	srand(time(NULL));
 
 	NVGcontext* nvg = nvgCreate(1, 0);
@@ -805,6 +808,8 @@ int _main_(int /*_argc*/, char** /*_argv*/)
 	}
 
 	nvgDelete(nvg);
+
+	imguiDestroy();
 	// Shutdown bgfx.
 	bgfx::shutdown();
 

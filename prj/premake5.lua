@@ -39,6 +39,7 @@ project "VideoPoker"
 	includedirs
 	{
 		"../bgfx/include/",
+		"../bgfx/3rdparty/",
 		"../bgfx/examples/common/",
 		"../bx/include/",
 	}
