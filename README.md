@@ -1,5 +1,7 @@
 # videopoker
 
+![VideoPoker](https://github.com/neo2buha/videopoker/docs/poker.png)
+
 todo
 - automatically hold cards on a good hand 
 - cleanup hardcoded stuff and make it resolution independent
