@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bgfx", "..\bgfx\.build\projects\vs2015\bgfx.vcxproj", "{6C90947C-58C7-950D-01B4-7B10EDC9110F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bgfx", "..\..\bgfx\.build\projects\vs2015\bgfx.vcxproj", "{6C90947C-58C7-950D-01B4-7B10EDC9110F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bx", "..\bx\.build\projects\vs2015\bx.vcxproj", "{5F775900-4B03-880B-B4B1-880BA05C880B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bx", "..\..\bx\.build\projects\vs2015\bx.vcxproj", "{5F775900-4B03-880B-B4B1-880BA05C880B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example-common", "..\bgfx\.build\projects\vs2015\example-common.vcxproj", "{A788128C-9356-0692-7CEA-76B86857E2F6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example-common", "..\..\bgfx\.build\projects\vs2015\example-common.vcxproj", "{A788128C-9356-0692-7CEA-76B86857E2F6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VideoPoker", "VideoPoker.vcxproj", "{9D128909-89CA-CA56-F2D1-A3B2DEA86547}"
 	ProjectSection(ProjectDependencies) = postProject

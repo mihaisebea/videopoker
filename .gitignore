@@ -28,7 +28,8 @@
 *.suo
 *.pdb
 
-prj/obj/
+prj/vs2015/obj/
 *.opensdf
 *.sdf
 *.ilk
+*.idb

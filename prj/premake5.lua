@@ -1,6 +1,7 @@
 solution "VideoPoker"
 	configurations {"Debug", "Release"}
-
+	location(_ACTION)
+	
 external "bgfx"
 	kind "StaticLib"
 	location "../bgfx/.build/projects/vs2015"
