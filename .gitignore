@@ -28,6 +28,7 @@
 *.suo
 *.pdb
 
+prj/vs2013/obj/
 prj/vs2015/obj/
 *.opensdf
 *.sdf
